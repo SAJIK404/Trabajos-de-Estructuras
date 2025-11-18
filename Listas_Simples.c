@@ -1,3 +1,18 @@
+// Algoritmo que crea lista simple
+
+//funciones incluidas en el codigo hasta el momento
+// *  insertarValorInicio
+// *  insertarValorFinal
+// *  eliminarPrimero
+// *  eliminarUltimo
+// *  imprimirLista
+// *  buscar
+// *  eliminarValor
+// *  insertarAntesDeValor
+// *  insertarDespuesDeValor
+// *  eleiminarAntesDeValor
+// *  eliminarDespuesDeValor
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -135,6 +150,228 @@ void buscar(Nodo *cabeza, int valor){
     printf("Valor %d NO encontrado en la lista.\n", valor);
 }
 
+// ==========================
+//      ELIMINAR VALOR
+// ==========================
+void eliminarValor(Nodo **cabeza, int valor){
+    // Caso 1: Lista vacía
+    if (*cabeza == NULL){
+        printf("La lista está vacía. No se pudo eliminar %d.\n", valor);
+        return;
+    }
+
+    // Caso 2: El nodo a eliminar es la cabeza
+    Nodo *actual = *cabeza;
+    if (actual->dato == valor){
+        *cabeza = actual->siguiente;
+        printf("Eliminando nodo cabeza con valor %d.\n", valor);
+        free(actual);
+        return;
+    }
+
+    // Caso 3: El nodo está en medio o al final de la lista
+    Nodo *previo = NULL;
+    while (actual != NULL && actual->dato != valor){
+        previo = actual;
+        actual = actual->siguiente;
+    }
+
+    // Si 'actual' es NULL, significa que el valor no se encontró
+    if (actual == NULL){
+        printf("Valor %d NO encontrado en la lista.\n", valor);
+        return;
+    }
+
+    // El nodo a eliminar es 'actual'.
+    // Desvinculamos el nodo 'actual' de la lista.
+    previo->siguiente = actual->siguiente;
+
+    printf("Eliminando nodo con valor %d.\n", valor);
+    free(actual); // Liberamos la memoria del nodo.
+}
+
+// ===================================
+//      INSERTAR ANTES DE UN VALOR
+// ===================================
+void insertarAntesDeValor(Nodo **cabeza, int nuevoValor, int valorReferencia){
+    // 1. Crear el nuevo nodo
+    Nodo *nuevoNodo = (Nodo*) malloc(sizeof(Nodo));
+    if (!nuevoNodo){
+        printf("Error: no se pudo asignar memoria.\n");
+        return;
+    }
+    nuevoNodo->dato = nuevoValor;
+
+    // Caso A: La lista está vacía
+    if (*cabeza == NULL){
+        printf("Lista vacía. No se puede insertar %d antes de %d.\n", nuevoValor, valorReferencia);
+        free(nuevoNodo);
+        return;
+    }
+
+    // Caso B: Insertar antes de la CABEZA
+    if ((*cabeza)->dato == valorReferencia){
+        nuevoNodo->siguiente = *cabeza;
+        *cabeza = nuevoNodo;
+        printf("Insertado %d antes del nodo cabeza con valor %d.\n", nuevoValor, valorReferencia);
+        return;
+    }
+
+    // Caso C: Buscar el nodo previo al valor de referencia
+    Nodo *actual = *cabeza;
+    Nodo *previo = NULL;
+
+    // Recorrer hasta que el siguiente nodo tenga el valor de referencia, 
+    // o hasta llegar al final de la lista.
+    while (actual != NULL && actual->dato != valorReferencia){
+        previo = actual;
+        actual = actual->siguiente;
+    }
+
+    // Caso D: Valor de referencia NO encontrado
+    if (actual == NULL){
+        printf("Valor de referencia %d NO encontrado en la lista. No se pudo insertar %d.\n", valorReferencia, nuevoValor);
+        free(nuevoNodo);
+        return;
+    }
+
+    // Caso E: Inserción en medio o al final
+    // 'actual' es el nodo con valorReferencia. 'previo' es el nodo justo antes.
+    nuevoNodo->siguiente = actual;
+    previo->siguiente = nuevoNodo;
+    
+    printf("Insertado %d antes de %d.\n", nuevoValor, valorReferencia);
+}
+
+// ====================================
+//      INSERTAR DESPUÉS DE UN VALOR
+// ====================================
+void insertarDespuesDeValor(Nodo **cabeza, int nuevoValor, int valorReferencia){
+    // 1. Crear el nuevo nodo
+    Nodo *nuevoNodo = (Nodo*) malloc(sizeof(Nodo));
+    if (!nuevoNodo){
+        printf("Error: no se pudo asignar memoria.\n");
+        return;
+    }
+    nuevoNodo->dato = nuevoValor;
+
+    // Caso A: La lista está vacía
+    if (*cabeza == NULL){
+        printf("Lista vacía. No se puede insertar %d después de %d.\n", nuevoValor, valorReferencia);
+        free(nuevoNodo);
+        return;
+    }
+
+    // Caso B: Buscar el nodo de referencia
+    Nodo *actual = *cabeza;
+    
+    // Recorrer hasta encontrar el nodo con valorReferencia, o hasta llegar al final.
+    while (actual != NULL && actual->dato != valorReferencia){
+        actual = actual->siguiente;
+    }
+
+    // Caso C: Valor de referencia NO encontrado
+    if (actual == NULL){
+        printf("Valor de referencia %d NO encontrado en la lista. No se pudo insertar %d.\n", valorReferencia, nuevoValor);
+        free(nuevoNodo);
+        return;
+    }
+
+    // Caso D: Inserción después del nodo encontrado
+    // 'actual' es el nodo de referencia.
+    nuevoNodo->siguiente = actual->siguiente;
+    actual->siguiente = nuevoNodo;
+    
+    printf("Insertado %d después de %d.\n", nuevoValor, valorReferencia);
+}
+
+// ===================================
+//      ELIMINAR ANTES DE UN VALOR
+// ===================================
+void eliminarAntesDeValor(Nodo **cabeza, int valorReferencia){
+    // Caso 1: Lista vacía o solo un nodo (no se puede eliminar 'antes' de nada)
+    if (*cabeza == NULL || (*cabeza)->siguiente == NULL){
+        printf("No se puede eliminar un nodo antes de %d (lista vacía o con un solo nodo).\n", valorReferencia);
+        return;
+    }
+
+    // Caso 2: El nodo a eliminar es la CABEZA (el valor de referencia es el segundo nodo)
+    if ((*cabeza)->siguiente->dato == valorReferencia){
+        Nodo *temp = *cabeza;
+        *cabeza = (*cabeza)->siguiente; // La nueva cabeza es el nodo de referencia
+        
+        printf("Eliminando nodo cabeza (antes de %d) con valor %d.\n", valorReferencia, temp->dato);
+        free(temp);
+        return;
+    }
+
+    // Caso 3: Buscar el nodo PREVIO al nodo a eliminar
+    // Necesitamos tres punteros: 
+    // - previo_al_eliminado (2 nodos antes de valorReferencia)
+    // - a_eliminar (1 nodo antes de valorReferencia)
+    // - actual (el nodo con valorReferencia)
+
+    Nodo *previo_al_eliminado = *cabeza;
+    // Buscamos el nodo que está dos posiciones antes de valorReferencia
+    while (previo_al_eliminado->siguiente->siguiente != NULL && previo_al_eliminado->siguiente->siguiente->dato != valorReferencia){
+        previo_al_eliminado = previo_al_eliminado->siguiente;
+    }
+
+    // Valor de referencia NO encontrado o solo queda un nodo antes de él (ya manejado en Caso 2)
+    if (previo_al_eliminado->siguiente->siguiente == NULL){
+        printf("No se encontró el nodo de referencia %d, o no hay un nodo antes de él.\n", valorReferencia);
+        return;
+    }
+
+    // Caso 4: Eliminación en medio de la lista
+    Nodo *a_eliminar = previo_al_eliminado->siguiente;
+    
+    // Saltamos el nodo a eliminar
+    previo_al_eliminado->siguiente = a_eliminar->siguiente;
+    
+    printf("Eliminando nodo con valor %d (antes de %d).\n", a_eliminar->dato, valorReferencia);
+    free(a_eliminar);
+}
+
+// =====================================
+//      ELIMINAR DESPUÉS DE UN VALOR
+// =====================================
+void eliminarDespuesDeValor(Nodo **cabeza, int valorReferencia){
+    // Caso 1: Lista vacía
+    if (*cabeza == NULL){
+        printf("La lista está vacía.\n");
+        return;
+    }
+
+    // Caso 2: Buscar el nodo de referencia
+    Nodo *referencia = *cabeza;
+    
+    // Recorrer hasta encontrar el nodo con valorReferencia
+    while (referencia != NULL && referencia->dato != valorReferencia){
+        referencia = referencia->siguiente;
+    }
+
+    // Caso 3: Valor de referencia NO encontrado
+    if (referencia == NULL){
+        printf("Valor de referencia %d NO encontrado en la lista.\n", valorReferencia);
+        return;
+    }
+
+    // Caso 4: No hay un nodo después del nodo de referencia
+    if (referencia->siguiente == NULL){
+        printf("No hay un nodo después de %d para eliminar.\n", valorReferencia);
+        return;
+    }
+
+    // Caso 5: Eliminación
+    Nodo *a_eliminar = referencia->siguiente;
+    
+    // Saltamos el nodo a eliminar
+    referencia->siguiente = a_eliminar->siguiente;
+
+    printf("Eliminando nodo con valor %d (después de %d).\n", a_eliminar->dato, valorReferencia);
+    free(a_eliminar);
+}
 
 // ==========================
 //             MAIN
@@ -169,6 +406,8 @@ int main(){
     imprimirLista(lista2);
 
     buscar(lista2, 2000);
+
+    
 
     return 0;
 }
