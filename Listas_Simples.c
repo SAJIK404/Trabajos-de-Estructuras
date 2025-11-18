@@ -11,11 +11,14 @@ typedef struct Nodo {
 //      INSERTAR INICIO
 // ==========================
 void insertarValorInicio(Nodo **cabeza, int valor){
-    Nodo *nuevoNodo = (Nodo*) malloc(sizeof(Nodo));
-    if (nuevoNodo == NULL){
+    Nodo *nuevoNodo = (Nodo*) malloc(sizeof(Nodo)); // casting
+    
+    // Manejo de errores ============
+    if (!nuevoNodo){
         printf("Error: no se pudo asignar memoria.\n");
         return;
     }
+    //========================
 
     nuevoNodo->dato = valor;
     nuevoNodo->siguiente = *cabeza;
