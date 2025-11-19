@@ -16,15 +16,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// definicion del nodo
 typedef struct Nodo {
     int dato;
     struct Nodo* siguiente;
 } Nodo;
+// fin estructura Nodo
 
-
-// ==========================
-//      INSERTAR INICIO
-// ==========================
+// INICIO FUNCION insertarValorInicio  
 void insertarValorInicio(Nodo **cabeza, int valor){
     Nodo *nuevoNodo = (Nodo*) malloc(sizeof(Nodo)); // casting
     
@@ -41,11 +40,9 @@ void insertarValorInicio(Nodo **cabeza, int valor){
 
     printf("Insertado %d al inicio.\n", valor);
 }
+// FIN FUNCION insertarValorInicio
 
-
-// ==========================
-//      INSERTAR FINAL
-// ==========================
+// INICIO FUNCION insertarValorFinal
 void insertarValorFinal(Nodo **cabeza, int valor){
     Nodo *nuevoNodo = (Nodo*) malloc(sizeof(Nodo));
     if (!nuevoNodo){
@@ -70,11 +67,9 @@ void insertarValorFinal(Nodo **cabeza, int valor){
     actual->siguiente = nuevoNodo;
     printf("Insertado %d al final.\n", valor);
 }
+// FIN FUNCION insertarValorFinal
 
-
-// ==========================
-//      IMPRIMIR LISTA
-// ==========================
+// INICIO FUNCION imprimirLista
 void imprimirLista(Nodo *cabeza){
     Nodo *actual = cabeza;
 
@@ -85,11 +80,9 @@ void imprimirLista(Nodo *cabeza){
     }
     printf("NULL\n");
 }
+// FIN FUNCION imprimirLista
 
-
-// ==========================
-//      ELIMINAR PRIMERO
-// ==========================
+// INICIO FUNCION eliminarPrimero
 void eliminarPrimero(Nodo **cabeza){
     if (*cabeza == NULL){
         printf("La lista está vacía.\n");
@@ -102,11 +95,9 @@ void eliminarPrimero(Nodo **cabeza){
     printf("Eliminando primer nodo con valor %d.\n", temp->dato);
     free(temp);
 }
+// FIN FUNCION eliminarPrimero
 
-
-// ==========================
-//      ELIMINAR ÚLTIMO
-// ==========================
+// INICIO FUNCION eliminarUltimo
 void eliminarUltimo(Nodo **cabeza){
     if (*cabeza == NULL){
         printf("La lista está vacía.\n");
@@ -129,11 +120,9 @@ void eliminarUltimo(Nodo **cabeza){
     free(actual->siguiente);
     actual->siguiente = NULL;
 }
+// FIN INICIO eliminarUltimo
 
-
-// ==========================
-//            BUSCAR
-// ==========================
+// INICIO FUNCION buscar
 void buscar(Nodo *cabeza, int valor){
     Nodo *actual = cabeza;
     int posicion = 0;
@@ -149,10 +138,9 @@ void buscar(Nodo *cabeza, int valor){
 
     printf("Valor %d NO encontrado en la lista.\n", valor);
 }
+// FIN FUNCION buscar
 
-// ==========================
-//      ELIMINAR VALOR
-// ==========================
+// INICIO FUNCION eliminarValor
 void eliminarValor(Nodo **cabeza, int valor){
     // Caso 1: Lista vacía
     if (*cabeza == NULL){
@@ -189,10 +177,9 @@ void eliminarValor(Nodo **cabeza, int valor){
     printf("Eliminando nodo con valor %d.\n", valor);
     free(actual); // Liberamos la memoria del nodo.
 }
+// FIN FUNCION eliminarValor
 
-// ===================================
-//      INSERTAR ANTES DE UN VALOR
-// ===================================
+// INICIO FUNCION insertarAntesDeValor
 void insertarAntesDeValor(Nodo **cabeza, int nuevoValor, int valorReferencia){
     // 1. Crear el nuevo nodo
     Nodo *nuevoNodo = (Nodo*) malloc(sizeof(Nodo));
@@ -242,10 +229,9 @@ void insertarAntesDeValor(Nodo **cabeza, int nuevoValor, int valorReferencia){
     
     printf("Insertado %d antes de %d.\n", nuevoValor, valorReferencia);
 }
+// FIN FUNCION insertarAntesDeValor
 
-// ====================================
-//      INSERTAR DESPUÉS DE UN VALOR
-// ====================================
+// INICIO FUNCION insertarDespuesDeValor
 void insertarDespuesDeValor(Nodo **cabeza, int nuevoValor, int valorReferencia){
     // 1. Crear el nuevo nodo
     Nodo *nuevoNodo = (Nodo*) malloc(sizeof(Nodo));
@@ -284,10 +270,9 @@ void insertarDespuesDeValor(Nodo **cabeza, int nuevoValor, int valorReferencia){
     
     printf("Insertado %d después de %d.\n", nuevoValor, valorReferencia);
 }
+// FIN FUNCION insertarDespuesDeValor
 
-// ===================================
-//      ELIMINAR ANTES DE UN VALOR
-// ===================================
+// INICIO FUNCION eliminarAntesDeValor
 void eliminarAntesDeValor(Nodo **cabeza, int valorReferencia){
     // Caso 1: Lista vacía o solo un nodo (no se puede eliminar 'antes' de nada)
     if (*cabeza == NULL || (*cabeza)->siguiente == NULL){
@@ -332,10 +317,9 @@ void eliminarAntesDeValor(Nodo **cabeza, int valorReferencia){
     printf("Eliminando nodo con valor %d (antes de %d).\n", a_eliminar->dato, valorReferencia);
     free(a_eliminar);
 }
+// FIN FUNCION eliminarAntesDeValor
 
-// =====================================
-//      ELIMINAR DESPUÉS DE UN VALOR
-// =====================================
+// INICIO FUNCION eliminarDespuesDeValor
 void eliminarDespuesDeValor(Nodo **cabeza, int valorReferencia){
     // Caso 1: Lista vacía
     if (*cabeza == NULL){
@@ -372,10 +356,8 @@ void eliminarDespuesDeValor(Nodo **cabeza, int valorReferencia){
     printf("Eliminando nodo con valor %d (después de %d).\n", a_eliminar->dato, valorReferencia);
     free(a_eliminar);
 }
+// FIN FUNCION eliminarDespuesDeValor
 
-// ==========================
-//             MAIN
-// ==========================
 int main(){
 
     // Crear dos listas independientes
