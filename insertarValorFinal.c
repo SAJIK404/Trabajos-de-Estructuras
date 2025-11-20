@@ -37,5 +37,5 @@ void insertarValorFinal(Nodo **cabeza, int valor){
 
 int main(){
     Nodo *lista1 = NULL;
-    insertarValorInicio(&lista1, 666)
+    insertarValorInicio(&lista1, 666);
     return 0;
