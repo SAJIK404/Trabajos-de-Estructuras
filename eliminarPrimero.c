@@ -24,3 +24,9 @@ void eliminarPrimero(Nodo **cabeza){
     free(temp);
 }
 // FIN FUNCION eliminarPrimero
+
+int main(){
+    Nodo *lista1 = NULL;
+    eliminarPrimero(&lista1, 666);
+    return 0;
+}
