@@ -1,6 +1,14 @@
 
 
 
+// definicion del nodo
+typedef struct Nodo {
+    int dato;
+    struct Nodo* siguiente;
+} Nodo;
+// fin estructura Nodo
+
+
 // INICIO FUNCION eliminarPrimero
 void eliminarPrimero(Nodo **cabeza){
     if (*cabeza == NULL){
