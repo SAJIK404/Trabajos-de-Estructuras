@@ -29,6 +29,6 @@ void buscar(Nodo *cabeza, int valor){
 
 int main(){
     Nodo *lista1 = NULL;
-    buscar(&lista1, 666);
+    buscar(lista1, 666);
     return 0;
 }
