@@ -29,9 +29,9 @@ void insertarValorInicio(Nodo **cabeza, int valor){
 
 
 int main(){
-    Nodo *lista1 = NULL
-    Nodo *lista2 = NULL
-    insertarValorInicio(&lista1, 666)
+    Nodo *lista1 = NULL;
+    Nodo *lista2 = NULL;
+    insertarValorInicio(&lista1, 666);
 
     return 0
 }
