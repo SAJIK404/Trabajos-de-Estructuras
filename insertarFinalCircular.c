@@ -44,3 +44,9 @@ void insertarFinalCircular(Nodo **cabeza, int valor) {
 }
 // FIN FUNCION insertarFinalCircular
 
+int main(){
+    Nodo *lista = NULL;
+    insertarFinalCircular(&lista, 666);
+    return 0;
+}
+
