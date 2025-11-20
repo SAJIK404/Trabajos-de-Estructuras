@@ -23,6 +23,6 @@ void imprimirLista(Nodo *cabeza){
 
 int main(){
     Nodo *lista1 = NULL;
-    imprimirLista(&lista1);
+    imprimirLista(lista1);
     return 0;
 }
