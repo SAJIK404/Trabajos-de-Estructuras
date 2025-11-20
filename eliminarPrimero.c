@@ -27,6 +27,6 @@ void eliminarPrimero(Nodo **cabeza){
 
 int main(){
     Nodo *lista1 = NULL;
-    eliminarPrimero(&lista1, 666);
+    eliminarPrimero(&lista1);
     return 0;
 }
