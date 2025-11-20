@@ -26,3 +26,10 @@ void insertarValorInicio(Nodo **cabeza, int valor){
     printf("Insertado %d al inicio.\n", valor);
 }
 // FIN FUNCION insertarValorInicio
+
+
+int main(){
+    insertarValorInicio(
+
+    return 0
+}
