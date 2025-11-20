@@ -33,5 +33,5 @@ int main(){
     Nodo *lista2 = NULL;
     insertarValorInicio(&lista1, 666);
 
-    return 0
+    return 0;
 }
